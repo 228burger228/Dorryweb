@@ -1,14 +1,13 @@
-<html>
-    <head>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Личный профиль</title>
-<link rel="stylesheet" href="styles.css">
-
-
-
-        <body>
-<!-- ===== Гамбургер (три полоски) ===== -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== Гамбургер (три полоски) ===== -->
   <div class="hamburger" id="hamburgerBtn">
     <div class="bar1"></div>
     <div class="bar2"></div>
@@ -29,11 +28,7 @@
   <div class="content-wrapper" id="contentWrapper">
     <header>
       <!-- Аватарка (замените src на свою) -->
-      <img
-        src="ava.jpg"
-        alt="Аватарка"
-        class="avatar"
-      />
+      <img src="ava.jpg" alt="Аватарка" class="avatar" />
 
       <!-- «Пузырь» с приветствием -->
       <div class="speech-bubble">
@@ -44,65 +39,79 @@
       <div class="arrow-down"></div>
     </header>
 
-    <!-- Секция с «Фото» -->
+    <!-- Секция «Фото» (можете оставить пустой или вставить что-то своё) -->
     <section class="photo-section">
-      <!-- Здесь может быть реальная галерея -->
+      <!-- Здесь код для основной галереи, если нужно -->
+      <h2 class="section-title">Мои работы</h2>
+      <div class="gallery">
+        <!-- Пример статичных блоков, если нужна простая галерея: -->
+        <!--
+        <div class="photo-item">
+          <img src="work1.jpg" alt="Работа 1" />
+          <div class="photo-caption">Работа 1</div>
+        </div>
+        <div class="photo-item">
+          <img src="work2.jpg" alt="Работа 2" />
+          <div class="photo-caption">Работа 2</div>
+        </div>
+        -->
+      </div>
     </section>
 
-      <!-- Галерея работ -->
+    <!-- ===== Секция «Мои проекты» (кликабельные карточки) ===== -->
     <section class="works-section">
       <h2 class="section-title">Мои проекты</h2>
       <div class="works-gallery">
         <!-- Работа 1 -->
         <a href="nature-series.html" class="work-card">
           <div class="image-container">
-            <img src="foto1.jpg" alt="Природа" class="work-image">
+            <img src="foto1.jpg" alt="Серия Природа" class="work-image" />
             <div class="overlay">
-              <h3>Серия "Природа"</h3>
+              <h3>Серия «Природа»</h3>
               <p>12 работ</p>
             </div>
           </div>
         </a>
-        
+
         <!-- Работа 2 -->
         <a href="urban-series.html" class="work-card">
           <div class="image-container">
-            <img src="foto2.jpg" alt="Город" class="work-image">
+            <img src="foto2.jpg" alt="Серия Город" class="work-image" />
             <div class="overlay">
-              <h3>Серия "Город"</h3>
+              <h3>Серия «Город»</h3>
               <p>8 работ</p>
             </div>
           </div>
         </a>
-        
+
         <!-- Работа 3 -->
         <a href="abstract-series.html" class="work-card">
           <div class="image-container">
-            <img src="foto3.jpg" alt="Абстракции" class="work-image">
+            <img src="foto3.jpg" alt="Серия Абстракции" class="work-image" />
             <div class="overlay">
-              <h3>Серия "Абстракции"</h3>
+              <h3>Серия «Абстракции»</h3>
               <p>15 работ</p>
             </div>
           </div>
         </a>
-        
+
         <!-- Работа 4 -->
         <a href="portrait-series.html" class="work-card">
           <div class="image-container">
-            <img src="foto4.1.jpg" alt="Портреты" class="work-image">
+            <img src="foto4.1.jpg" alt="Серия Портреты" class="work-image" />
             <div class="overlay">
-              <h3>Серия "Портреты"</h3>
+              <h3>Серия «Портреты»</h3>
               <p>10 работ</p>
             </div>
           </div>
         </a>
-        
+
         <!-- Работа 5 -->
         <a href="light-series.html" class="work-card">
           <div class="image-container">
-            <img src="foto5.jpg" alt="Свет" class="work-image">
+            <img src="foto5.jpg" alt="Серия Игра света" class="work-image" />
             <div class="overlay">
-              <h3>Серия "Игра света"</h3>
+              <h3>Серия «Игра света»</h3>
               <p>7 работ</p>
             </div>
           </div>
@@ -110,24 +119,16 @@
       </div>
     </section>
 
-    <!-- Пустое пространство -->
+    <!-- Пустое пространство, чтобы нижнее меню не слипалось с контентом -->
     <div class="bottom-space"></div>
   </div>
 
   <!-- ===== Кнопка управления музыкой (YouTube) ===== -->
   <div class="music-button" id="musicBtn" title="Вкл/Выкл музыку">
-    <!-- Иконка нотки (вы можете заменить на любую свою) -->
     <img src="https://cdn-icons-png.flaticon.com/512/109/109663.png" alt="Music Icon" />
   </div>
 
   <!-- ===== Контейнер для YouTube IFrame API ===== -->
-  <div id="ytPlayer"></div>
-
-  <!-- ===== Скрипт: загружаем YouTube IFrame API ===== -->
-
-
-            
-  <!-- YouTube плеер (скрыт) -->
   <div id="ytPlayer"></div>
 
   <script>
@@ -137,12 +138,10 @@
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // Глобальные переменные
     let player;
     let isPlaying = false;
-    const MUSIC_ID = 'JC3Dj5o_ucw'; // ID трека "Rex Incognito" из Genshin Impact
+    const MUSIC_ID = 'JC3Dj5o_ucw'; // ID YouTube-видео
 
-    // Инициализация плеера
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('ytPlayer', {
         height: '0',
@@ -159,31 +158,18 @@
           playsinline: 1
         },
         events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange,
-          'onError': onPlayerError
+          'onReady': () => {},
+          'onStateChange': (e) => {
+            if (e.data === YT.PlayerState.ENDED) player.playVideo();
+          },
+          'onError': (e) => console.error('Ошибка плеера:', e.data)
         }
       });
     }
 
-    function onPlayerReady(event) {
-      console.log('Плеер готов');
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.ENDED) {
-        player.playVideo(); // Для двойной гарантии loop
-      }
-    }
-
-    function onPlayerError(event) {
-      console.error('Ошибка плеера:', event.data);
-    }
-
-    // Управление музыкой
     document.addEventListener('DOMContentLoaded', () => {
+      // Кнопка музыки
       const musicBtn = document.getElementById('musicBtn');
-      
       musicBtn.addEventListener('click', () => {
         if (!isPlaying) {
           player.playVideo();
@@ -197,27 +183,24 @@
           musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
         }
       });
-    });
 
-    // Управление меню
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const contentWrapper = document.getElementById('contentWrapper');
+      // Управление гамбургером и размытием
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const sideMenu = document.getElementById('sideMenu');
+      const contentWrapper = document.getElementById('contentWrapper');
 
-    hamburgerBtn.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('active');
-      sideMenu.classList.toggle('active');
-      contentWrapper.classList.toggle('blurred');
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        sideMenu.classList.toggle('active');
+        contentWrapper.classList.toggle('blurred');
+      });
     });
 
     function closeMenu() {
-      hamburgerBtn.classList.remove('active');
-      sideMenu.classList.remove('active');
-      contentWrapper.classList.remove('blurred');
+      document.getElementById('hamburgerBtn').classList.remove('active');
+      document.getElementById('sideMenu').classList.remove('active');
+      document.getElementById('contentWrapper').classList.remove('blurred');
     }
   </script>
-
-
-        </body>
-    </head>
+</body>
 </html>
