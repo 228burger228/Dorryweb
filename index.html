@@ -8,7 +8,7 @@
 
 
         <body>
-
+<!-- ===== Гамбургер (три полоски) ===== -->
   <div class="hamburger" id="hamburgerBtn">
     <div class="bar1"></div>
     <div class="bar2"></div>
@@ -30,7 +30,7 @@
     <header>
       <!-- Аватарка (замените src на свою) -->
       <img
-        src="ava.jpg"
+        src="https://via.placeholder.com/120"
         alt="Аватарка"
         class="avatar"
       />
@@ -46,117 +46,106 @@
 
     <!-- Секция с «Фото» -->
     <section class="photo-section">
-      <!-- Здесь может быть ваша галерея -->
+      <!-- Здесь может быть реальная галерея -->
     </section>
 
     <!-- Пустое пространство -->
     <div class="bottom-space"></div>
   </div>
 
-  <!-- ===== Кнопка управления музыкой ===== -->
+  <!-- ===== Кнопка управления музыкой (YouTube) ===== -->
   <div class="music-button" id="musicBtn" title="Вкл/Выкл музыку">
-    <!-- Иконка нотки (можно заменить) -->
+    <!-- Иконка нотки (вы можете заменить на любую свою) -->
     <img src="https://cdn-icons-png.flaticon.com/512/109/109663.png" alt="Music Icon" />
   </div>
 
-  <!-- ===== Плейлист (audio-элемент без <source>) ===== -->
-  <audio id="playlistAudio" preload="auto"></audio>
+  <!-- ===== Контейнер для YouTube IFrame API ===== -->
+  <div id="ytPlayer"></div>
 
+  <!-- ===== Скрипт: загружаем YouTube IFrame API ===== -->
   <script>
-    // ===== JS: переключатель меню и размытие контента =====
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const contentWrapper = document.getElementById('contentWrapper');
+    // 1) Вставляем тег <script> для подгрузки YouTube IFrame API асинхронно
+    let tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    hamburgerBtn.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('active');
-      sideMenu.classList.toggle('active');
-      contentWrapper.classList.toggle('blurred');
-    });
-
-    function closeMenu() {
-      hamburgerBtn.classList.remove('active');
-      sideMenu.classList.remove('active');
-      contentWrapper.classList.remove('blurred');
-    }
-
-<!-- ===== Плейлист (audio-элемент без <source>) ===== -->
-  <audio id="playlistAudio" preload="auto"></audio>
-
-  <script>
-    // ===== JS: переключатель меню и размытие контента =====
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const contentWrapper = document.getElementById('contentWrapper');
-
-    hamburgerBtn.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('active');
-      sideMenu.classList.toggle('active');
-      contentWrapper.classList.toggle('blurred');
-    });
-
-    function closeMenu() {
-      hamburgerBtn.classList.remove('active');
-      sideMenu.classList.remove('active');
-      contentWrapper.classList.remove('blurred');
-    }
-
-    // ===== JS: плейлист Genshin Impact =====
-    const playlistAudio = document.getElementById('playlistAudio');
-    const musicBtn = document.getElementById('musicBtn');
-
-    // Здесь укажите реальные прямые ссылки на MP3-файлы Genshin Impact OST.
-    const tracks = [
-      "track1.mp3",
-      "track2.mp3",
-      "track3.mp3"
-      // и т.д.
-    ];
-
-    let currentIndex = 0;
+    // 2) Переменные для работы с плеером
+    let player;
     let isPlaying = false;
 
-    // Устанавливаем первый трек в audio
-    playlistAudio.src = tracks[currentIndex];
+    // 3) Функция, которую YouTube вызовет, когда API загрузится
+    function onYouTubeIframeAPIReady() {
+      // Создаём плеер внутри <div id="ytPlayer">
+      player = new YT.Player('ytPlayer', {
+        height: '0',      // скрываем визуально
+        width: '0',       // скрываем визуально
+        videoId: 'JC3Dj5o_ucw', // ID вашего YouTube видео (Genshin OST)
+        playerVars: {
+          autoplay: 0,     // не стартовать сразу, ждём клика
+          controls: 0,     // без боковых контролов
+          loop: 1,         // зациклить
+          playlist: 'JC3Dj5o_ucw', // чтобы loop работал — дублируем ID в playlist
+          modestbranding: 1,
+          rel: 0,          // не показывать похожие в конце
+          iv_load_policy: 3 // без аннотаций
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
 
-    // Когда трек заканчивается — переключаемся на следующий (по порядку)
-    playlistAudio.addEventListener('ended', () => {
-      currentIndex = (currentIndex + 1) % tracks.length;
-      playlistAudio.src = tracks[currentIndex];
-      playlistAudio.play();
+    // Когда плеер готов (хотя мы ничего особого не делаем)
+    function onPlayerReady(event) {
+      // Можно попытаться запустить прямо, но браузеры могут блокировать автоплей
+      // event.target.playVideo();
+    }
+
+    // Если хотим отслеживать окончание (хотя loop=1 уже зациклит)
+    function onPlayerStateChange(event) {
+      // Пример логики, если хотите что-то при окончании трека:
+      // if (event.data === YT.PlayerState.ENDED) {
+      //   // Тут можно загрузить новый videoId, если нужен плейлист из нескольких видео
+      // }
+    }
+
+    // Ждём, пока страница полностью загрузится
+    document.addEventListener('DOMContentLoaded', () => {
+      // Найдём кнопку и назначим ей обработчик
+      const musicBtn = document.getElementById('musicBtn');
+      musicBtn.addEventListener('click', () => {
+        if (!isPlaying) {
+          player.playVideo();
+          isPlaying = true;
+          musicBtn.style.backgroundColor = '#FFD1E6';
+          musicBtn.style.boxShadow = '0 0 14px #FFD1E6';
+        } else {
+          player.pauseVideo();
+          isPlaying = false;
+          musicBtn.style.backgroundColor = '#344D8E';
+          musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
+        }
+      });
     });
 
-    // Если нужен случайный порядок, можно заменить выше на:
-    // playlistAudio.addEventListener('ended', () => {
-    //   currentIndex = Math.floor(Math.random() * tracks.length);
-    //   playlistAudio.src = tracks[currentIndex];
-    //   playlistAudio.play();
-    // });
+    // ===== JS: переключатель (toggle) меню и размытие контента =====
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const contentWrapper = document.getElementById('contentWrapper');
 
-    // Обработчик для кнопки вкл/выкл музыки
-    musicBtn.addEventListener('click', () => {
-      if (!isPlaying) {
-        playlistAudio.play();
-        isPlaying = true;
-        musicBtn.style.backgroundColor = '#FFD1E6';
-        musicBtn.style.boxShadow = '0 0 14px #FFD1E6';
-      } else {
-        playlistAudio.pause();
-        isPlaying = false;
-        musicBtn.style.backgroundColor = '#344D8E';
-        musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
-      }
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      sideMenu.classList.toggle('active');
+      contentWrapper.classList.toggle('blurred');
     });
 
-    // Автозапуск при открытии страницы (если необходимо):
-    // playlistAudio.play().catch(() => {});
-
-
-    // Дополнительно: если хотите начать воспроизведение сразу при загрузке,
-    // можно раскомментировать следующую строку. Но учтите, что в браузерах
-    // автоплей может блокироваться, пока пользователь не кликнет хоть раз.
-    // playlistAudio.play().catch(() => {});
-  </script>
+    function closeMenu() {
+      hamburgerBtn.classList.remove('active');
+      sideMenu.classList.remove('active');
+      contentWrapper.classList.remove('blurred');
+    }
 
 
 
