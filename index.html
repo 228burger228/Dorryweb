@@ -1,0 +1,114 @@
+<html>
+    <head>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личный профиль</title>
+
+
+
+
+        <body>
+
+  <!-- ===== Гамбургер (три полоски) ===== -->
+  <div class="hamburger" id="hamburgerBtn">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+
+  <!-- ===== Выезжающее меню ===== -->
+  <nav class="side-menu" id="sideMenu">
+    <h2>Меню</h2>
+    <ul>
+      <li><a href="#" onclick="closeMenu()">Галерея</a></li>
+      <li><a href="#" onclick="closeMenu()">Прайс</a></li>
+      <li><a href="#" onclick="closeMenu()">Я в соцсетях</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Контент, который будет размываться ===== -->
+  <div class="content-wrapper" id="contentWrapper">
+    <header>
+      <!-- Аватарка (замените src на свою) -->
+      <img
+        src="https://via.placeholder.com/120"
+        alt="Аватарка"
+        class="avatar"
+      />
+
+      <!-- «Пузырь» с приветствием -->
+      <div class="speech-bubble">
+        <p>Приветствие, кто я</p>
+      </div>
+
+      <!-- Анимационная стрелка вниз -->
+      <div class="arrow-down"></div>
+    </header>
+
+    <!-- Секция с «Фото» -->
+    <section class="photo-section">
+      <!-- Здесь может быть реальная галерея -->
+    </section>
+
+    <!-- Пустое пространство -->
+    <div class="bottom-space"></div>
+  </div>
+
+  <!-- ===== Кнопка управления музыкой ===== -->
+  <div class="music-button" id="musicBtn" title="Вкл/Выкл музыку">
+    <!-- Иконка нотки (можно заменить) -->
+    <img src="https://cdn-icons-png.flaticon.com/512/109/109663.png" alt="Music Icon" />
+  </div>
+
+  <!-- ===== Скрытый тег audio, в нём — ваша фоновая музыка ===== -->
+  <audio id="backgroundMusic" loop preload="auto">
+    <!-- Поменяйте src на свою мелодию -->
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+    Ваш браузер не поддерживает аудио-тег.
+  </audio>
+
+  <script>
+    // ===== JS: переключатель (toggle) меню и размытие контента =====
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const contentWrapper = document.getElementById('contentWrapper');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      sideMenu.classList.toggle('active');
+      contentWrapper.classList.toggle('blurred');
+    });
+
+    // Закрытие меню при клике на пункт
+    function closeMenu() {
+      hamburgerBtn.classList.remove('active');
+      sideMenu.classList.remove('active');
+      contentWrapper.classList.remove('blurred');
+    }
+
+    // ===== JS: кнопка вкл/выкл музыки =====
+    const musicBtn = document.getElementById('musicBtn');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        backgroundMusic.play();
+        isPlaying = true;
+        musicBtn.style.backgroundColor = '#FFD1E6'; /* 3. свечение, когда играет */
+        musicBtn.style.boxShadow = '0 0 14px #FFD1E6';
+      } else {
+        backgroundMusic.pause();
+        isPlaying = false;
+        musicBtn.style.backgroundColor = '#344D8E'; /* 2. тёмный текст, когда пауза */
+        musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
+      }
+    });
+  </script>
+
+
+
+
+        </body>
+    </head>
+</html>
