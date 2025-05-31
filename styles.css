@@ -132,14 +132,14 @@ header {
 .photo-section {
   margin: 50px auto 100px;
   width: 90%;
-  max-width: 800px;
+  max-width: 600px;     /* можно увеличить/уменьшить, если хотите шире/уже */
   padding: 20px;
-  background: #FFD1E6; /* свечение фона */
+  background: #FFD1E6;  /* свечение фона */
   border-radius: 15px;
   box-shadow: 0 0 12px rgba(52, 77, 142, 0.3);
 }
 
-/* Заголовок внутри секции (если есть) */
+/* Заголовок внутри секции */
 .photo-section .section-title {
   text-align: center;
   font-size: 28px;
@@ -148,80 +148,40 @@ header {
   font-family: 'Courier New', Courier, monospace;
 }
 
-/* Сетка-галерея */
+/* Теперь галерея — НЕ grid, а flex-колонка */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  /* Увеличил minmax до 200px, чтобы картинки были чуть шире. */
-  gap: 15px;
+  display: flex;
+  flex-direction: column;  /* vertical stack */
+  gap: 20px;               /* расстояние между карточками */
 }
 
-/* Элемент галереи */
+/* Карточка работы */
 .photo-item {
-  /* Убираем overflow: hidden, чтобы не обрезать исходник */
   position: relative;
-  /* overflow: hidden;  ← удалили эту строку */
   border-radius: 10px;
-  background: #fff;               /* фон блока (опционально) */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* лёгкая тень */
+  background: #ffffff; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;        /* чтобы рамка была ровной, но картинка НЕ обрезается по высоте */
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-/* Чтобы при наведении карточка слегка «поднялась» */
+/* При наведении слегка "поднимаем" всю карточку */
 .photo-item:hover {
   transform: translateY(-4px);
 }
 
-/* Картинка внутри photo-item */
-.photo-item img {
-  width: 100%;
-  height: auto;      /* показываем полную высоту, сохраняя пропорции */
-  display: block;    /* убираем лишние пробелы */
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-/* Подпись к картинке ( если нужна ) */
-.photo-caption {
-  position: relative; /* больше не абсолютная, чтобы не накладываться сверху */
-  padding: 8px 10px;
-  background: rgba(52, 77, 142, 0.8); /* чуть темнее, но всё ещё полупрозрачный */
-  color: #ffffff;
-  font-size: 16px;
-  text-align: center;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-/* Сетка-галерея */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-}
-.photo-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
+/* Картинка растягивается по ширине контейнера, но высота — по пропорциям */
 .photo-item img {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.3s ease;
 }
-.photo-item:hover img {
-  transform: scale(1.05);
-}
+
+/* Подпись к картинке (ниже, под самим <img>) */
 .photo-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 8px 10px;
-  background: rgba(52, 77, 142, 0.7);
+  padding: 10px;
+  background: rgba(52, 77, 142, 0.8);
   color: #ffffff;
   font-size: 16px;
   text-align: center;
@@ -253,7 +213,7 @@ header {
 .music-button img {
   width: 28px;
   height: 28px;
-  filter: invert(100%); /* иконка белая */
+  filter: invert(100%);
 }
 
 /* ===== Выезжающее меню справа ===== */
@@ -263,7 +223,7 @@ header {
   right: -280px;
   width: 280px;
   height: 100vh;
-  background-color: #344D8E; /* тёмный цвет */
+  background-color: #344D8E;
   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
   transition: right 0.3s ease;
   z-index: 3;
@@ -276,7 +236,7 @@ header {
   right: 0;
 }
 .side-menu h2 {
-  color: #FFD1E6; /* свечение */
+  color: #FFD1E6;
   margin-bottom: 30px;
   font-size: 24px;
 }
@@ -310,7 +270,7 @@ header {
   visibility: hidden;
 }
 
-/* Пустое пространство снизу */
+/* Пустое пространство снизу, чтобы меню не скрывало контент */
 .bottom-space {
   height: 200px;
 }
