@@ -6,6 +6,7 @@
   <title>Серия «Персонажи»</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* ===== Стили для страницы «Персонажи» ===== */
     .back-link {
       display: inline-block;
       margin: 20px;
@@ -68,20 +69,128 @@
   </style>
 </head>
 <body>
+  <!-- Ссылка «Назад» -->
   <a href="index.html" class="back-link">← Назад</a>
 
   <section class="series-section">
     <h2>Серия «Персонажи» (8 работ)</h2>
     <div class="series-gallery">
-      <div class="series-item"><img src="character1.jpg" alt="Персонажи 1"><p>Работа 1</p></div>
-      <div class="series-item"><img src="character2.jpg" alt="Персонажи 2"><p>Работа 2</p></div>
-      <div class="series-item"><img src="character3.jpg" alt="Персонажи 3"><p>Работа 3</p></div>
-      <div class="series-item"><img src="character4.jpg" alt="Персонажи 4"><p>Работа 4</p></div>
-      <div class="series-item"><img src="character5.jpg" alt="Персонажи 5"><p>Работа 5</p></div>
-      <div class="series-item"><img src="character6.jpg" alt="Персонажи 6"><p>Работа 6</p></div>
-      <div class="series-item"><img src="character7.jpg" alt="Персонажи 7"><p>Работа 7</p></div>
-      <div class="series-item"><img src="character8.jpg" alt="Персонажи 8"><p>Работа 8</p></div>
+      <div class="series-item">
+        <img src="urban1.jpg" alt="Персонаж 1">
+        <p>Работа 1</p>
+      </div>
+      <div class="series-item">
+        <img src="urban2.jpg" alt="Персонаж 2">
+        <p>Работа 2</p>
+      </div>
+      <div class="series-item">
+        <img src="urban3.jpg" alt="Персонаж 3">
+        <p>Работа 3</p>
+      </div>
+      <div class="series-item">
+        <img src="urban4.jpg" alt="Персонаж 4">
+        <p>Работа 4</p>
+      </div>
+      <div class="series-item">
+        <img src="urban5.jpg" alt="Персонаж 5">
+        <p>Работа 5</p>
+      </div>
+      <div class="series-item">
+        <img src="urban6.jpg" alt="Персонаж 6">
+        <p>Работа 6</p>
+      </div>
+      <div class="series-item">
+        <img src="urban7.jpg" alt="Персонаж 7">
+        <p>Работа 7</p>
+      </div>
+      <div class="series-item">
+        <img src="urban8.jpg" alt="Персонаж 8">
+        <p>Работа 8</p>
+      </div>
     </div>
   </section>
+   <!-- Пустое пространство, чтобы нижнее меню не слипалось с контентом -->
+    <div class="bottom-space"></div>
+  </div>
+
+  <!-- ===== Кнопка управления музыкой (YouTube) ===== -->
+  <div class="music-button" id="musicBtn" title="Вкл/Выкл музыку">
+    <img src="https://cdn-icons-png.flaticon.com/512/109/109663.png" alt="Music Icon" />
+  </div>
+
+  <!-- ===== Контейнер для YouTube IFrame API ===== -->
+  <div id="ytPlayer"></div>
+
+  <script>
+    // Загрузка YouTube API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    let player;
+    let isPlaying = false;
+    const MUSIC_ID = 'JC3Dj5o_ucw'; // ID YouTube-видео
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytPlayer', {
+        height: '0',
+        width: '0',
+        videoId: MUSIC_ID,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: MUSIC_ID,
+          modestbranding: 1,
+          rel: 0,
+          iv_load_policy: 3,
+          playsinline: 1
+        },
+        events: {
+          'onReady': () => {},
+          'onStateChange': (e) => {
+            if (e.data === YT.PlayerState.ENDED) player.playVideo();
+          },
+          'onError': (e) => console.error('Ошибка плеера:', e.data)
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Кнопка музыки
+      const musicBtn = document.getElementById('musicBtn');
+      musicBtn.addEventListener('click', () => {
+        if (!isPlaying) {
+          player.playVideo();
+          isPlaying = true;
+          musicBtn.style.backgroundColor = '#FFD1E6';
+          musicBtn.style.boxShadow = '0 0 14px #FFD1E6';
+        } else {
+          player.pauseVideo();
+          isPlaying = false;
+          musicBtn.style.backgroundColor = '#344D8E';
+          musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
+        }
+      });
+
+      // Управление гамбургером и размытием
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const sideMenu = document.getElementById('sideMenu');
+      const contentWrapper = document.getElementById('contentWrapper');
+
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        sideMenu.classList.toggle('active');
+        contentWrapper.classList.toggle('blurred');
+      });
+    });
+
+    function closeMenu() {
+      document.getElementById('hamburgerBtn').classList.remove('active');
+      document.getElementById('sideMenu').classList.remove('active');
+      document.getElementById('contentWrapper').classList.remove('blurred');
+    }
+  </script>
 </body>
 </html>
