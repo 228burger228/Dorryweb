@@ -134,10 +134,12 @@ header {
   width: 90%;
   max-width: 800px;
   padding: 20px;
-  background: #FFD1E6; /* свечение */
+  background: #FFD1E6; /* свечение фона */
   border-radius: 15px;
   box-shadow: 0 0 12px rgba(52, 77, 142, 0.3);
 }
+
+/* Заголовок внутри секции (если есть) */
 .photo-section .section-title {
   text-align: center;
   font-size: 28px;
@@ -146,6 +148,51 @@ header {
   font-family: 'Courier New', Courier, monospace;
 }
 
+/* Сетка-галерея */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* Увеличил minmax до 200px, чтобы картинки были чуть шире. */
+  gap: 15px;
+}
+
+/* Элемент галереи */
+.photo-item {
+  /* Убираем overflow: hidden, чтобы не обрезать исходник */
+  position: relative;
+  /* overflow: hidden;  ← удалили эту строку */
+  border-radius: 10px;
+  background: #fff;               /* фон блока (опционально) */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* лёгкая тень */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Чтобы при наведении карточка слегка «поднялась» */
+.photo-item:hover {
+  transform: translateY(-4px);
+}
+
+/* Картинка внутри photo-item */
+.photo-item img {
+  width: 100%;
+  height: auto;      /* показываем полную высоту, сохраняя пропорции */
+  display: block;    /* убираем лишние пробелы */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Подпись к картинке ( если нужна ) */
+.photo-caption {
+  position: relative; /* больше не абсолютная, чтобы не накладываться сверху */
+  padding: 8px 10px;
+  background: rgba(52, 77, 142, 0.8); /* чуть темнее, но всё ещё полупрозрачный */
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
 /* Сетка-галерея */
 .gallery {
   display: grid;
