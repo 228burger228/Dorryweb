@@ -80,15 +80,32 @@
       contentWrapper.classList.remove('blurred');
     }
 
+<!-- ===== Плейлист (audio-элемент без <source>) ===== -->
+  <audio id="playlistAudio" preload="auto"></audio>
+
+  <script>
+    // ===== JS: переключатель меню и размытие контента =====
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const contentWrapper = document.getElementById('contentWrapper');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      sideMenu.classList.toggle('active');
+      contentWrapper.classList.toggle('blurred');
+    });
+
+    function closeMenu() {
+      hamburgerBtn.classList.remove('active');
+      sideMenu.classList.remove('active');
+      contentWrapper.classList.remove('blurred');
+    }
+
     // ===== JS: плейлист Genshin Impact =====
     const playlistAudio = document.getElementById('playlistAudio');
     const musicBtn = document.getElementById('musicBtn');
 
     // Здесь укажите реальные прямые ссылки на MP3-файлы Genshin Impact OST.
-    // Пример:
-    //   "https://your-host.com/genshin/track1.mp3",
-    //   "https://your-host.com/genshin/track2.mp3",
-    //   ...
     const tracks = [
       "track1.mp3",
       "track2.mp3",
@@ -102,14 +119,21 @@
     // Устанавливаем первый трек в audio
     playlistAudio.src = tracks[currentIndex];
 
-    // Когда трек заканчивается — переключаемся на следующий
+    // Когда трек заканчивается — переключаемся на следующий (по порядку)
     playlistAudio.addEventListener('ended', () => {
       currentIndex = (currentIndex + 1) % tracks.length;
       playlistAudio.src = tracks[currentIndex];
       playlistAudio.play();
     });
 
-    // Обработчик для кнопки
+    // Если нужен случайный порядок, можно заменить выше на:
+    // playlistAudio.addEventListener('ended', () => {
+    //   currentIndex = Math.floor(Math.random() * tracks.length);
+    //   playlistAudio.src = tracks[currentIndex];
+    //   playlistAudio.play();
+    // });
+
+    // Обработчик для кнопки вкл/выкл музыки
     musicBtn.addEventListener('click', () => {
       if (!isPlaying) {
         playlistAudio.play();
@@ -123,6 +147,10 @@
         musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
       }
     });
+
+    // Автозапуск при открытии страницы (если необходимо):
+    // playlistAudio.play().catch(() => {});
+
 
     // Дополнительно: если хотите начать воспроизведение сразу при загрузке,
     // можно раскомментировать следующую строку. Но учтите, что в браузерах
