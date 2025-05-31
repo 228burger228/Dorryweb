@@ -8,8 +8,7 @@
 
 
         <body>
-
-  <!-- ===== Гамбургер (три полоски) ===== -->
+!-- ===== Гамбургер (три полоски) ===== -->
   <div class="hamburger" id="hamburgerBtn">
     <div class="bar1"></div>
     <div class="bar2"></div>
@@ -47,7 +46,7 @@
 
     <!-- Секция с «Фото» -->
     <section class="photo-section">
-      <!-- Здесь может быть реальная галерея -->
+      <!-- Здесь может быть ваша галерея -->
     </section>
 
     <!-- Пустое пространство -->
@@ -60,16 +59,11 @@
     <img src="https://cdn-icons-png.flaticon.com/512/109/109663.png" alt="Music Icon" />
   </div>
 
-  <!-- ===== Скрытый тег audio, в нём — ваша фоновая музыка ===== -->
-  <audio id="backgroundMusic" loop preload="auto">
-    <!-- Поменяйте src на свою мелодию -->
-    <audio controls>
-    <source src="https://vgmsite.com/soundtracks/genshin-impact-ost-vol-2-liyue/jxqjqkqj/Rex%20Incognito.mp3" type="audio/mpeg" />
-    Ваш браузер не поддерживает аудио-тег.
-</audio>
+  <!-- ===== Плейлист (audio-элемент без <source>) ===== -->
+  <audio id="playlistAudio" preload="auto"></audio>
 
   <script>
-    // ===== JS: переключатель (toggle) меню и размытие контента =====
+    // ===== JS: переключатель меню и размытие контента =====
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const sideMenu = document.getElementById('sideMenu');
     const contentWrapper = document.getElementById('contentWrapper');
@@ -80,33 +74,61 @@
       contentWrapper.classList.toggle('blurred');
     });
 
-    // Закрытие меню при клике на пункт
     function closeMenu() {
       hamburgerBtn.classList.remove('active');
       sideMenu.classList.remove('active');
       contentWrapper.classList.remove('blurred');
     }
 
-    // ===== JS: кнопка вкл/выкл музыки =====
+    // ===== JS: плейлист Genshin Impact =====
+    const playlistAudio = document.getElementById('playlistAudio');
     const musicBtn = document.getElementById('musicBtn');
-    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    // Здесь укажите реальные прямые ссылки на MP3-файлы Genshin Impact OST.
+    // Пример:
+    //   "https://your-host.com/genshin/track1.mp3",
+    //   "https://your-host.com/genshin/track2.mp3",
+    //   ...
+    const tracks = [
+      "track1.mp3",
+      "track2.mp3",
+      "track3.mp3"
+      // и т.д.
+    ];
+
+    let currentIndex = 0;
     let isPlaying = false;
 
+    // Устанавливаем первый трек в audio
+    playlistAudio.src = tracks[currentIndex];
+
+    // Когда трек заканчивается — переключаемся на следующий
+    playlistAudio.addEventListener('ended', () => {
+      currentIndex = (currentIndex + 1) % tracks.length;
+      playlistAudio.src = tracks[currentIndex];
+      playlistAudio.play();
+    });
+
+    // Обработчик для кнопки
     musicBtn.addEventListener('click', () => {
       if (!isPlaying) {
-        backgroundMusic.play();
+        playlistAudio.play();
         isPlaying = true;
-        musicBtn.style.backgroundColor = '#FFD1E6'; /* 3. свечение, когда играет */
+        musicBtn.style.backgroundColor = '#FFD1E6';
         musicBtn.style.boxShadow = '0 0 14px #FFD1E6';
       } else {
-        backgroundMusic.pause();
+        playlistAudio.pause();
         isPlaying = false;
-        musicBtn.style.backgroundColor = '#344D8E'; /* 2. тёмный текст, когда пауза */
+        musicBtn.style.backgroundColor = '#344D8E';
         musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
       }
     });
-  </script>
 
+    // Дополнительно: если хотите начать воспроизведение сразу при загрузке,
+    // можно раскомментировать следующую строку. Но учтите, что в браузерах
+    // автоплей может блокироваться, пока пользователь не кликнет хоть раз.
+    // playlistAudio.play().catch(() => {});
+  </script>
 
 
 
