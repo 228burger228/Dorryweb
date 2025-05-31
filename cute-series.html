@@ -6,6 +6,7 @@
   <title>Серия «Милота»</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* ===== Стили для страницы «Милота» ===== */
     .back-link {
       display: inline-block;
       margin: 20px;
@@ -50,4 +51,174 @@
     }
     .series-item img {
       width: 100%;
-      height: 150px
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .series-item p {
+      padding: 10px;
+      font-size: 1rem;
+      color: #344D8E;
+      background: #F5F0F5;
+    }
+    @media (max-width: 500px) {
+      .series-item img {
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ссылка «Назад» -->
+  <a href="index.html" class="back-link">← Назад</a>
+
+  <section class="series-section">
+    <h2>Серия «Милота» (15 работ)</h2>
+    <div class="series-gallery">
+      <div class="series-item">
+        <img src="abstract1.jpg" alt="Милота 1">
+        <p>Работа 1</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract2.jpg" alt="Милота 2">
+        <p>Работа 2</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract3.jpg" alt="Милота 3">
+        <p>Работа 3</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract4.jpg" alt="Милота 4">
+        <p>Работа 4</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract5.jpg" alt="Милота 5">
+        <p>Работа 5</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract6.jpg" alt="Милота 6">
+        <p>Работа 6</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract7.jpg" alt="Милота 7">
+        <p>Работа 7</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract8.jpg" alt="Милота 8">
+        <p>Работа 8</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract9.jpg" alt="Милота 9">
+        <p>Работа 9</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract10.jpg" alt="Милота 10">
+        <p>Работа 10</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract11.jpg" alt="Милота 11">
+        <p>Работа 11</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract12.jpg" alt="Милота 12">
+        <p>Работа 12</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract13.jpg" alt="Милота 13">
+        <p>Работа 13</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract14.jpg" alt="Милота 14">
+        <p>Работа 14</p>
+      </div>
+      <div class="series-item">
+        <img src="abstract15.jpg" alt="Милота 15">
+        <p>Работа 15</p>
+      </div>
+    </div>
+  </section>
+   <!-- Пустое пространство, чтобы нижнее меню не слипалось с контентом -->
+    <div class="bottom-space"></div>
+  </div>
+
+  <!-- ===== Кнопка управления музыкой (YouTube) ===== -->
+  <div class="music-button" id="musicBtn" title="Вкл/Выкл музыку">
+    <img src="https://cdn-icons-png.flaticon.com/512/109/109663.png" alt="Music Icon" />
+  </div>
+
+  <!-- ===== Контейнер для YouTube IFrame API ===== -->
+  <div id="ytPlayer"></div>
+
+  <script>
+    // Загрузка YouTube API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    let player;
+    let isPlaying = false;
+    const MUSIC_ID = 'JC3Dj5o_ucw'; // ID YouTube-видео
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytPlayer', {
+        height: '0',
+        width: '0',
+        videoId: MUSIC_ID,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: MUSIC_ID,
+          modestbranding: 1,
+          rel: 0,
+          iv_load_policy: 3,
+          playsinline: 1
+        },
+        events: {
+          'onReady': () => {},
+          'onStateChange': (e) => {
+            if (e.data === YT.PlayerState.ENDED) player.playVideo();
+          },
+          'onError': (e) => console.error('Ошибка плеера:', e.data)
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Кнопка музыки
+      const musicBtn = document.getElementById('musicBtn');
+      musicBtn.addEventListener('click', () => {
+        if (!isPlaying) {
+          player.playVideo();
+          isPlaying = true;
+          musicBtn.style.backgroundColor = '#FFD1E6';
+          musicBtn.style.boxShadow = '0 0 14px #FFD1E6';
+        } else {
+          player.pauseVideo();
+          isPlaying = false;
+          musicBtn.style.backgroundColor = '#344D8E';
+          musicBtn.style.boxShadow = '0 0 10px #FFD1E6';
+        }
+      });
+
+      // Управление гамбургером и размытием
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const sideMenu = document.getElementById('sideMenu');
+      const contentWrapper = document.getElementById('contentWrapper');
+
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        sideMenu.classList.toggle('active');
+        contentWrapper.classList.toggle('blurred');
+      });
+    });
+
+    function closeMenu() {
+      document.getElementById('hamburgerBtn').classList.remove('active');
+      document.getElementById('sideMenu').classList.remove('active');
+      document.getElementById('contentWrapper').classList.remove('blurred');
+    }
+  </script>
+</body>
+</html>
