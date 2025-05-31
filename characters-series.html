@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Серия «Персонажи»</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .back-link {
+      display: inline-block;
+      margin: 20px;
+      color: #344D8E;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+      color: #1f316e;
+    }
+    .series-section {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .series-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #344D8E;
+      font-family: 'Marck Script', cursive;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .series-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .series-item {
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      cursor: pointer;
+    }
+    .series-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .series-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .series-item p {
+      padding: 10px;
+      font-size: 1rem;
+      color: #344D8E;
+      background: #F5F0F5;
+    }
+    @media (max-width: 500px) {
+      .series-item img {
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link">← Назад</a>
+
+  <section class="series-section">
+    <h2>Серия «Персонажи» (8 работ)</h2>
+    <div class="series-gallery">
+      <div class="series-item"><img src="character1.jpg" alt="Персонажи 1"><p>Работа 1</p></div>
+      <div class="series-item"><img src="character2.jpg" alt="Персонажи 2"><p>Работа 2</p></div>
+      <div class="series-item"><img src="character3.jpg" alt="Персонажи 3"><p>Работа 3</p></div>
+      <div class="series-item"><img src="character4.jpg" alt="Персонажи 4"><p>Работа 4</p></div>
+      <div class="series-item"><img src="character5.jpg" alt="Персонажи 5"><p>Работа 5</p></div>
+      <div class="series-item"><img src="character6.jpg" alt="Персонажи 6"><p>Работа 6</p></div>
+      <div class="series-item"><img src="character7.jpg" alt="Персонажи 7"><p>Работа 7</p></div>
+      <div class="series-item"><img src="character8.jpg" alt="Персонажи 8"><p>Работа 8</p></div>
+    </div>
+  </section>
+</body>
+</html>
