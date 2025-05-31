@@ -1,19 +1,139 @@
-/* ===== Общие стили ===== */
+/* ===== Основные стили ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
 }
 
 body {
-  background-color: #FFA1A6; /* фон страницы */
-  overflow-x: hidden;
+  background-color: #FFA1A6;
+  font-family: 'Montserrat', sans-serif;
+  color: #344D8E;
+  line-height: 1.6;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* ===== Шапка профиля ===== */
+header {
+  padding: 40px 20px 30px;
+  text-align: center;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+  box-shadow: 0 0 15px rgba(255, 209, 230, 0.8);
+  margin-bottom: 20px;
+}
+
+.speech-bubble {
+  max-width: 320px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.speech-bubble p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.speech-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== Галерея работ ===== */
+.works-section {
+  padding: 0 20px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: #344D8E;
+  font-family: 'Marck Script', cursive;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.works-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.work-card {
+  display: block;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.work-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%; /* Соотношение сторон 4:3 */
+  overflow: hidden;
+}
+
+.work-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.work-card:hover .work-image {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(52, 77, 142, 0.9), transparent);
+  color: white;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.work-card:hover .overlay {
+  transform: translateY(0);
+}
+
+.overlay h3 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.overlay p {
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
 
 /* ===== Контейнер для размываемого контента ===== */
