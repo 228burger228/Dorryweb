@@ -7,7 +7,7 @@
     }
 
     body {
-      background-color: #FFA1A6; /* фон */
+      background-color: #FFA1A6; /* фон страницы */
       overflow-x: hidden;
     }
 
@@ -155,7 +155,7 @@
       color: rgba(52, 77, 142, 0.08);
     }
 
-    /* ===== Кнопка вкл/выкл музыки ===== */
+    /* ===== Кнопка включения/выключения музыки ===== */
     .music-button {
       position: fixed;
       bottom: 20px;
@@ -229,6 +229,14 @@
     }
     .side-menu li a:hover {
       background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Задаём нулевые размеры для контейнера YouTube-плеера, 
+       чтобы он «работал» в фоне, но не отображался */
+    #ytPlayer {
+      width: 0;
+      height: 0;
+      visibility: hidden;
     }
 
     /* Пустое пространство снизу */
