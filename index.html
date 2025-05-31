@@ -63,58 +63,66 @@
   <div id="ytPlayer"></div>
 
   <!-- ===== Скрипт: загружаем YouTube IFrame API ===== -->
+
+
+            
+  <!-- YouTube плеер (скрыт) -->
+  <div id="ytPlayer"></div>
+
   <script>
-    // 1) Вставляем тег <script> для подгрузки YouTube IFrame API асинхронно
-    let tag = document.createElement('script');
+    // Загрузка YouTube API
+    const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName('script')[0];
+    const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // 2) Переменные для работы с плеером
+    // Глобальные переменные
     let player;
     let isPlaying = false;
+    const MUSIC_ID = 'JC3Dj5o_ucw'; // ID трека "Rex Incognito" из Genshin Impact
 
-    // 3) Функция, которую YouTube вызовет, когда API загрузится
+    // Инициализация плеера
     function onYouTubeIframeAPIReady() {
-      // Создаём плеер внутри <div id="ytPlayer">
       player = new YT.Player('ytPlayer', {
-        height: '0',      // скрываем визуально
-        width: '0',       // скрываем визуально
-        videoId: 'https://www.youtube.com/watch?v=JC3Dj5o_ucw', // ID вашего YouTube видео (Genshin OST)
+        height: '0',
+        width: '0',
+        videoId: MUSIC_ID,
         playerVars: {
-          autoplay: 0,     // не стартовать сразу, ждём клика
-          controls: 0,     // без боковых контролов
-          loop: 1,         // зациклить
-          playlist: 'JC3Dj5o_ucw', // чтобы loop работал — дублируем ID в playlist
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: MUSIC_ID,
           modestbranding: 1,
-          rel: 0,          // не показывать похожие в конце
-          iv_load_policy: 3 // без аннотаций
+          rel: 0,
+          iv_load_policy: 3,
+          playsinline: 1
         },
         events: {
           'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
+          'onStateChange': onPlayerStateChange,
+          'onError': onPlayerError
         }
       });
     }
 
-    // Когда плеер готов (хотя мы ничего особого не делаем)
     function onPlayerReady(event) {
-      // Можно попытаться запустить прямо, но браузеры могут блокировать автоплей
-      // event.target.playVideo();
+      console.log('Плеер готов');
     }
 
-    // Если хотим отслеживать окончание (хотя loop=1 уже зациклит)
     function onPlayerStateChange(event) {
-      // Пример логики, если хотите что-то при окончании трека:
-      // if (event.data === YT.PlayerState.ENDED) {
-      //   // Тут можно загрузить новый videoId, если нужен плейлист из нескольких видео
-      // }
+      if (event.data === YT.PlayerState.ENDED) {
+        player.playVideo(); // Для двойной гарантии loop
+      }
     }
 
-    // Ждём, пока страница полностью загрузится
+    function onPlayerError(event) {
+      console.error('Ошибка плеера:', event.data);
+    }
+
+    // Управление музыкой
     document.addEventListener('DOMContentLoaded', () => {
-      // Найдём кнопку и назначим ей обработчик
       const musicBtn = document.getElementById('musicBtn');
+      
       musicBtn.addEventListener('click', () => {
         if (!isPlaying) {
           player.playVideo();
@@ -130,7 +138,7 @@
       });
     });
 
-    // ===== JS: переключатель (toggle) меню и размытие контента =====
+    // Управление меню
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const sideMenu = document.getElementById('sideMenu');
     const contentWrapper = document.getElementById('contentWrapper');
@@ -146,7 +154,7 @@
       sideMenu.classList.remove('active');
       contentWrapper.classList.remove('blurred');
     }
-
+  </script>
 
 
         </body>
