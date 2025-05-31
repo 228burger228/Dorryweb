@@ -107,7 +107,7 @@ a {
 header {
   padding: 40px 20px 30px;
   text-align: center;
-  position: relative; /* чтобы гамбургер позиционировался относительно */
+  position: relative; /* чтобы гамбургер правильно располагался */
 }
 
 .avatar {
@@ -116,7 +116,7 @@ header {
   border-radius: 50%;
   border: 4px solid white;
   object-fit: cover;
-  box-shadow: 0 0 15px rgba(255, 209, 230, 0.8); /* лёгкое розовое свечение */
+  box-shadow: 0 0 15px rgba(255, 209, 230, 0.8);
   margin-bottom: 20px;
   background-color: #fff;
 }
@@ -148,7 +148,7 @@ header {
   border-color: #ffffff transparent transparent transparent;
 }
 
-/* Стрелка вниз */
+/* ===== Стрелка вниз ===== */
 .arrow-down {
   width: 0;
   height: 0;
@@ -173,7 +173,7 @@ header {
   }
 }
 
-/* ===== Секция «Фото» (можете убрать, если не нужна) ===== */
+/* ===== Секция «Фото» (опционально) ===== */
 .photo-section {
   margin: 50px auto 40px;
   width: 90%;
@@ -220,7 +220,7 @@ header {
   text-align: center;
 }
 
-/* ===== Секция «Мои проекты» (вертикальные превью-карточки) ===== */
+/* ===== Секция «Мои проекты» ===== */
 .works-section {
   padding: 0 20px 40px;
   max-width: 800px;
@@ -235,14 +235,14 @@ header {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Вертикальный список карточек */
+/* Вертикально выстроенные карточки */
 .works-gallery {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* Каждая карточка занимает всю ширину родителя */
+/* Каждая карточка */
 .work-card {
   display: block;
   border-radius: 15px;
@@ -256,30 +256,30 @@ header {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Контейнер, формирующий соотношение сторон 16:9 или 4:3 */
+/* Контейнер-обёртка для соотношения сторон 16:9 */
 .image-container {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 — если хотите чуть уже, можно поставить 66.66% (3:2) или 75% (4:3) */
+  padding-bottom: 56.25%; /* 16:9 */
   overflow: hidden;
 }
 
-/* Превью-картинка — занимает весь контейнер, обрезается по краям */
+/* Превью-картинка */
 .work-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* обрезает лишнее, но картинка масштабируется, чтобы заполнить контейнер */
+  object-fit: cover;
   transition: transform 0.5s;
 }
 .work-card:hover .work-image {
   transform: scale(1.05);
 }
 
-/* Тёмный градиент снизу + текст поверх (скрыт, пока не наведут) */
+/* Оверлей с названием и количеством работ */
 .overlay {
   position: absolute;
   bottom: 0;
