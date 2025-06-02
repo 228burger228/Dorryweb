@@ -1,345 +1,213 @@
-/* ===== Основные стили ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* ===== 1. Базовые настройки ===== */
 body {
-  background-color: #FFA1A6;
-  font-family: 'Montserrat', sans-serif;
-  color: #344D8E;
-  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8e8ff;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+/* ===== 2. Хранение кастомных анимаций и цветов ===== */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* ===== Гамбургер (три полоски) ===== */
-.hamburger {
+@keyframes twinkle {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff69b4, 0 0 20px #ff69b4; }
+  to   { box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4; }
+}
+
+/* ===== 3. Sparkle (мигающая точка) ===== */
+.sparkle {
   position: absolute;
-  top: 30px;
-  right: 20px;
-  width: 30px;
-  height: 24px;
-  cursor: pointer;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: twinkle 1.5s infinite;
+}
+
+/* ===== 4. Градиентный заголовок ===== */
+.gradient-header {
+  background: linear-gradient(90deg, #ffb6c1 0%, #f0e68c 100%);
+  animation: gradientShift 5s ease infinite;
+}
+
+/* ===== 5. Сообщение (message-bubble) ===== */
+.message-bubble {
+  background-color: #a6f5a6;
+  border-radius: 25px;
+}
+
+/* ===== 6. Кнопки навигации ===== */
+.nav-button {
+  background-color: #6ce96c;
+  transition: all 0.3s ease;
+}
+.nav-button:hover {
+  background-color: #5bd85b;
+  transform: scale(1.05);
+}
+.active-nav {
+  background-color: #ffffff;
+}
+
+/* ===== 7. Контролы плеера ===== */
+.player-controls {
+  background-color: #a6f5a6;
+}
+.control-button {
+  background-color: #6ce96c;
+  border: 2px solid #ffffff;
+  transition: all 0.3s ease;
+}
+.control-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(108, 233, 108, 0.7);
+}
+
+/* ===== 8. Анимация свечения ===== */
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* ===== 9. Стили для гамбургера и бокового меню ===== */
+.hamburger {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 2rem;
+  height: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
+  z-index: 50;
 }
-.hamburger div {
-  width: 100%;
-  height: 4px;
-  background-color: #344D8E; /* тёмный цвет */
-  border-radius: 2px;
+.hamburger .bar1,
+.hamburger .bar2,
+.hamburger .bar3 {
+  height: 0.25rem;
+  background-color: #4a5568; /* серый-700 (Tailwind) */
+  border-radius: 0.125rem;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .hamburger.active .bar1 {
-  transform: translateY(10px) rotate(45deg);
+  transform: translateY(0.75rem) rotate(45deg);
 }
 .hamburger.active .bar2 {
   opacity: 0;
 }
 .hamburger.active .bar3 {
-  transform: translateY(-10px) rotate(-45deg);
+  transform: translateY(-0.75rem) rotate(-45deg);
 }
 
-/* ===== Выезжающее меню справа ===== */
+/* ===== Выезжающее меню ===== */
 .side-menu {
   position: fixed;
   top: 0;
-  right: -280px;
-  width: 280px;
+  left: -16rem; /* прячем за пределами экрана */
+  width: 16rem;
   height: 100vh;
-  background-color: #344D8E;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
-  transition: right 0.3s ease;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 100px;
+  background-color: #ffffff;
+  padding: 2rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 40;
 }
 .side-menu.active {
-  right: 0;
-}
-.side-menu h2 {
-  color: #FFD1E6;
-  margin-bottom: 30px;
-  font-size: 24px;
-}
-.side-menu ul {
-  list-style: none;
-  width: 100%;
-  padding: 0;
-}
-.side-menu li {
-  width: 100%;
-  margin-bottom: 20px;
-}
-.side-menu li a {
-  display: block;
-  width: 100%;
-  padding: 12px 20px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 18px;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-}
-.side-menu li a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  left: 0;
 }
 
-/* ===== Контейнер для размываемого контента ===== */
+/* ===== Контент, который будет размываться ===== */
 .content-wrapper {
-  position: relative;
-  z-index: 1;
   transition: filter 0.3s ease;
 }
 .content-wrapper.blurred {
   filter: blur(8px);
 }
 
-/* ===== Шапка профиля (аватар + «пузырь») ===== */
-header {
-  padding: 40px 20px 30px;
-  text-align: center;
-  position: relative; /* чтобы гамбургер правильно располагался */
-}
-
-.avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid white;
-  object-fit: cover;
-  box-shadow: 0 0 15px rgba(255, 209, 230, 0.8);
-  margin-bottom: 20px;
-  background-color: #fff;
-}
-
-.speech-bubble {
-  max-width: 320px;
-  margin: 0 auto;
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-.speech-bubble p {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-.speech-bubble p:last-child {
-  margin-bottom: 0;
-}
-.speech-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 15px 12px 0 12px;
-  border-style: solid;
-  border-color: #ffffff transparent transparent transparent;
-}
-
 /* ===== Стрелка вниз ===== */
 .arrow-down {
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 20px solid #344D8E;
-  margin-top: 30px;
-  animation: pulse 1.5s infinite;
+  border-left: 0.75rem solid transparent;
+  border-right: 0.75rem solid transparent;
+  border-top: 1.25rem solid #4a5568; /* серый-700 */
+  animation: bounce 1.5s infinite;
+  margin-top: 1rem;
 }
-@keyframes pulse {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(8px);
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+  100% { transform: translateY(0); }
 }
 
-/* ===== Секция «Фото» (опционально) ===== */
-.photo-section {
-  margin: 50px auto 40px;
-  width: 90%;
-  max-width: 600px;
-  padding: 20px;
-  background: #FFD1E6;
-  border-radius: 15px;
-  box-shadow: 0 0 12px rgba(52, 77, 142, 0.3);
-}
-.photo-section .section-title {
-  text-align: center;
-  font-size: 28px;
-  color: #344D8E;
-  margin-bottom: 20px;
-  font-family: 'Courier New', Courier, monospace;
-}
-.gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.photo-item {
-  position: relative;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-.photo-item:hover {
-  transform: translateY(-4px);
-}
-.photo-item img {
-  width: 100%;
-  height: auto;
+/* ===== Галерея фотографий ===== */
+.photo-card img {
   display: block;
 }
-.photo-caption {
-  padding: 10px;
-  background: rgba(52, 77, 142, 0.8);
-  color: #ffffff;
-  font-size: 16px;
-  text-align: center;
-}
 
-/* ===== Секция «Мои проекты» ===== */
-.works-section {
-  padding: 0 20px 40px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.works-section .section-title {
-  text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: 30px;
-  color: #344D8E;
-  font-family: 'Marck Script', cursive;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Вертикально выстроенные карточки */
-.works-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-/* Каждая карточка */
+/* ===== Карточки проектов ===== */
 .work-card {
-  display: block;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
 }
-.work-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Контейнер-обёртка для соотношения сторон 16:9 */
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* 16:9 */
-  overflow: hidden;
-}
-
-/* Превью-картинка */
-.work-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-.work-card:hover .work-image {
-  transform: scale(1.05);
-}
-
-/* Оверлей с названием и количеством работ */
-.overlay {
+.work-card .overlay {
+  /* задаём почти-полный чёрный фон сверху, плавно показываем */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(52, 77, 142, 0.9), transparent);
-  color: white;
-  padding: 20px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 .work-card:hover .overlay {
-  transform: translateY(0);
-}
-.overlay h3 {
-  font-size: 1.4rem;
-  margin-bottom: 5px;
-}
-.overlay p {
-  font-size: 0.9rem;
-  opacity: 0.8;
+  opacity: 1;
 }
 
-/* ===== Кнопка управления музыкой ===== */
+/* ===== Навигационные кнопки ===== */
+.nav-button, .active-nav {
+  @apply w-full py-4 rounded-full text-center text-xl font-medium text-green-800 transition-all duration-300 hover:shadow-lg;
+}
+/* Активная кнопка */
+.active-nav {
+  background-color: #ffffff;
+}
+
+/* ===== Музыкальная кнопка ===== */
 .music-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background-color: #344D8E;
-  border-radius: 50%;
+  bottom: 6rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 10px #FFD1E6;
+  box-shadow: 0 0 10px #00ffe7;
   transition: transform 0.2s ease, background-color 0.3s ease;
-  z-index: 2;
+  z-index: 30;
 }
 .music-button:hover {
   transform: scale(1.1);
 }
-.music-button:active {
-  transform: scale(0.95);
-}
 .music-button img {
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   filter: invert(100%);
 }
 
-/* ===== «Невидимый» контейнер для YouTube-плеера ===== */
+/* ===== YouTube-плеер (невидимый) ===== */
 #ytPlayer {
   width: 0;
   height: 0;
   visibility: hidden;
-}
-
-/* ===== Пустое пространство снизу ===== */
-.bottom-space {
-  height: 200px;
 }
